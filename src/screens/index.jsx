@@ -16,8 +16,12 @@ export default () => {
     if (data?.date !== null) {
       setIsSet(true)
     }
+    ref1.current.start()
   }, [data])
+  useEffect(() => {
 
+    ref1.current.start()
+  }, [isSet])
   const navigate = useNavigate()
 
   const formatRenderer = ({ days, hours, minutes, seconds, }) => (
@@ -57,16 +61,16 @@ export default () => {
             <Clock />
           </div>
           <p className='countdown-container__title'>Kalan Süre</p>
-          {isSet ? <Countdown date={timer} renderer={formatRenderer} ref={ref1} onComplete={() => navigate('/products')} />
+          {isSet ? <Countdown date={timer} renderer={formatRenderer} autoStart={true} ref={ref1} controlled={false} onComplete={() => navigate('/products')} />
             : <Countdown date={Date.now()} renderer={formatRenderer} ref={ref1} />}
         </div>
         <div className='buttons-container'>
           <div className='buttons-container__button buttons-container__button--stop'
-            onClick={() => ref1.current.pause()}>
+            onClick={() => { ref1.current.pause() }}>
             <p className='button-text'>Geri Sayımı Durdur</p>
           </div>
           <div className='buttons-container__button buttons-container__button--restart'
-            onClick={() => ref1.current.start()}>
+            onClick={() => { ref1.current.start() }}>
             <p className='button-text'>Geri Sayımı Yeniden Başlat</p>
           </div>
         </div>
